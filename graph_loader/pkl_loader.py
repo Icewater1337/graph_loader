@@ -12,3 +12,10 @@ def load_graphs_from_pkl(pkl_file_path):
     pickle_in.close()
 
     return graphs_list, garphs_lbls
+
+def load_graphs_dict_from_pkl(pkl_file_path):
+    pickle_in = open(pkl_file_path, "rb")
+    graphs_dict = pickle.load(pickle_in)
+    pickle_in.close()
+
+    return graphs_dict
