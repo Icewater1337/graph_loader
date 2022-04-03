@@ -7,12 +7,20 @@ import networkx as nx
 import numpy as np
 
 def add_nodes(anthony_graph, nx_graph,node_idx_dict, label_name, attribute_names):
-    attributes_list = [label_name]
+    if label_name is not None:
+        attributes_list = [label_name]
+    else:
+        attributes_list = []
+
     attributes_list.extend(attribute_names)
     for node_name in nx_graph.nodes():
         attr_vals = []
         for att in attributes_list:
-            attr_vals.append(nx_graph.nodes[node_name][att])
+            attrs = nx_graph.nodes[node_name][att]
+            if isinstance(attrs, list):
+                attr_vals.extend(attrs)
+            else:
+                attr_vals.append(attrs)
         anthony_graph.add_node(Node(node_idx_dict[node_name], LabelNodeVector(np.array(attr_vals))))
 
     return anthony_graph
